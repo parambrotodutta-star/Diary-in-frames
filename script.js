@@ -2,13 +2,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Curated Portfolio Asset Manifest
 const photographyData = [
-    { url: "https://i.ibb.co/vYmZf6m/IMG-20260510-122606.png", title: "Neon Monsoon Monologue", category: "Cinematic Street", layout: "portrait" },
-    { url: "https://i.ibb.co/r7X0vXk/In-Shot-20260522-125043105.jpg", title: "Himalayan Ridge Layering", category: "Mountain Landscape", layout: "landscape" },
-    { url: "https://i.ibb.co/rZhG0qQ/In-Shot-20260525-113635932.jpg", title: "The Misty Transit Way", category: "Mood Landscape", layout: "landscape" },
-    { url: "https://i.ibb.co/YyYQLm1/file-00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
-    { url: "https://i.ibb.co/D8GgL9q/file-00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
-    { url: "https://i.ibb.co/yq6C0f1/file-0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" }
-];
+    { url: "IMG_20260510_122606.png", title: "Neon Monsoon Monologue", category: "Cinematic Street", layout: "portrait" },
+    { url: "InShot_20260522_125043105.jpg", title: "Himalayan Ridge Layering", category: "Mountain Landscape", layout: "landscape" },
+    { url: "InShot_20260525_113635932.jpg", title: "The Misty Transit Way", category: "Mood Landscape", layout: "landscape" },
+    { url: "file_00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
+    { url: "file_00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
+    { url: "file_0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" }
+];   
 
 const galleryGrid = document.getElementById('gallery-grid');
 const lightbox = document.getElementById('lightbox');
