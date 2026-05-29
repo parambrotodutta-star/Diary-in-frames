@@ -3,75 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diary in Frames | Luxury Cinematic Portfolio</title>
-    
+    <title>Diary in Frames | Premium Visual Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-    <div class="page-transition-curtain" id="intro-curtain">
-        <div class="curtain-logo" id="curtain-text">DIARY IN FRAMES</div>
-    </div>
+    <!-- Apple-Style Minimal Navigation Bar -->
+    <header class="apple-navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">Diary in Frames</a>
+            <nav class="nav-menu">
+                <a href="#gallery">Exhibition</a>
+                <a href="#services">Expertise</a>
+                <a href="#quotes">Inspiration</a>
+                <a href="#connect">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="film-grain"></div>
+    <!-- Smooth Scroll Virtual Container Wrapper -->
+    <div id="scroll-container">
 
-   <section class="hero">
-    <div class="hero-bg-wrapper" id="hero-parallax-trigger">
-        <img src="IMG_20260510_122606.png" alt="Diary in Frames Artwork" class="hero-parallax-img">
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1 class="main-title" id="hero-title">DIARY IN FRAMES</h1>
-        <p class="main-subtitle" id="hero-subtitle">STORIES THROUGH A CINEMATIC LENS</p>
-    </div>
-    <div class="scroll-indicator">EXPLORE ARCHIVE ↓</div>
-</section>
-    
-    <section class="about-section">
-        <div class="about-card">
-            <span class="location-tag">KOLKATA, IN 🇮🇳</span>
-            <h2>Visual Storyteller</h2>
-            <div class="services-row">
-                <span>📸 Photography</span>
-                <span>🎥 Videography</span>
-                <span>✂️ Editing</span>
+        <!-- Section 1: Fullscreen Cinematic Hero Section with Cross-Fade Slideshow -->
+        <section class="fullscreen-hero">
+            <div class="hero-slideshow">
+                <div class="hero-slide active" style="background-image: url('IMG_20260510_122606.png');"></div>
+                <div class="hero-slide" style="background-image: url('InShot_20260522_125043105.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('InShot_20260525_113635932.jpg');"></div>
             </div>
-            <p class="collab-text">Specializing in high-end composition, cinematic coloring, and atmospheric visual curation. <br><strong>Available globally for creative assignments and editorial project direction</strong>.</p>
-        </div>
-    </section>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p class="hero-badge">Cinematography & Frames</p>
+                <h1 class="hero-title">DIARY IN FRAMES</h1>
+                <p class="hero-subtitle">Capturing raw, timeless moments through an editorial lens.</p>
+                <a href="#gallery" class="apple-cta-btn">View Exhibition</a>
+            </div>
+            <div class="scroll-prompt">
+                <span>Scroll to Explore</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
 
-    <section class="portfolio-container">
-        <div class="section-header">
-            <p class="section-tag">CURATED EXHIBITION</p>
-            <h2 class="section-title">The Visual Archive</h2>
-        </div>
-        <div class="gallery-grid" id="gallery-grid"></div>
-    </section>
+        <!-- Section 2: Core Focus & Expertise (What I Do) -->
+        <section id="services" class="section-wrapper bg-darker">
+            <div class="content-container">
+                <div class="section-header text-center">
+                    <span class="section-tag">Core Disciplines</span>
+                    <h2 class="section-heading">Creative Capabilities</h2>
+                    <div class="meta-location">Based in Kolkata 🇮🇳 • Available for Worldwide Travel</div>
+                </div>
 
-    <section class="socials-section">
-        <div class="socials-content">
-            <p class="social-tag">JOURNAL ENTRIES</p>
-            <h3>Connect on Social Hub</h3>
-            <a href="https://www.instagram.com/diary_in_frames11?igsh=Nm0yc3puaWMxZmlv" target="_blank" class="instagram-link">
-                @diary_in_frames11
-            </a>
-        </div>
-    </section>
+                <div class="apple-services-grid">
+                    <div class="service-card-premium">
+                        <div class="card-icon-wrap">📸</div>
+                        <h3>Photography</h3>
+                        <p>Specializing in atmospheric street framing, raw candid portraiture, and crisp, moody compositional landscapes.</p>
+                    </div>
+                    <div class="service-card-premium">
+                        <div class="card-icon-wrap">🎥</div>
+                        <h3>Videography</h3>
+                        <p>Directing, shooting, and pacing short-form cinematic stories, reels, and mini-documentaries with precise framing.</p>
+                    </div>
+                    <div class="service-card-premium">
+                        <div class="card-icon-wrap">✂️</div>
+                        <h3>Editing</h3>
+                        <p>Advanced film color-grading, seamless audio design sequencing, and crafting distinct custom presets.</p>
+                    </div>
+                </div>
 
-    <footer>
-        <p class="footer-brand">DIARY IN FRAMES</p>
-        <p class="footer-credits">&copy; 2026. All Rights Reserved. Timeless Captures.</p>
-    </footer>
+                <div class="collab-invite-banner">
+                    <p>Have an editorial idea or looking to elevate your brand layout?</p>
+                    <a href="#connect" class="text-link-apple">DM for collaborations <span>→</span></a>
+                </div>
+            </div>
+        </section>
 
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-close" id="lightbox-close">&times;</div>
-        <img class="lightbox-img" id="lightbox-img" src="" alt="Premium view">
-        <div class="lightbox-caption">
-            <h3 id="lightbox-title"></h3>
-            <p id="lightbox-category"></p>
+        <!-- Section 3: Fine Art Exhibition Gallery -->
+        <section id="gallery" class="section-wrapper">
+            <div class="content-container">
+                <div class="section-header">
+                    <span class="section-tag">Curated Archive</span>
+                    <h2 class="section-heading">The Exhibition Grid</h2>
+                </div>
+
+                <!-- Modern Asymmetric Layout Grid Grid -->
+                <div class="apple-portfolio-grid" id="masonry-gallery"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: Masters of Light (Photographer Quotes) -->
+        <section id="quotes" class="section-wrapper bg-darker">
+            <div class="content-container">
+                <div class="quote-slider-wrapper">
+                    <div class="quote-carousel" id="quote-carousel-container">
+                        <div class="premium-quote-slide active">
+                            <span class="quote-mark">“</span>
+                            <p class="main-quote-body">Your first 10,000 photographs are your worst.</p>
+                            <h4 class="quote-creator">— Henri Cartier-Bresson</h4>
+                        </div>
+                        <div class="premium-quote-slide">
+                            <span class="quote-mark">“</span>
+                            <p class="main-quote-body">The formula for doing a good job in photography is to look at things like a child.</p>
+                            <h4 class="quote-creator">— Henri d'Origny</h4>
+                        </div>
+                        <div class="premium-quote-slide">
+                            <span class="quote-mark">“</span>
+                            <p class="main-quote-body">There is one thing the photograph must contain, the humanity of the moment.</p>
+                            <h4 class="quote-creator">— Robert Frank</h4>
+                        </div>
+                        <div class="premium-quote-slide">
+                            <span class="quote-mark">“</span>
+                            <p class="main-quote-body">Photography is a way of feeling, of touching, of loving.</p>
+                            <h4 class="quote-creator">— Aaron Siskind</h4>
+                        </div>
+                    </div>
+                    <div class="slider-dots-navigation" id="slider-dots"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Social Media Directory & Contact Connections -->
+        <section id="connect" class="section-wrapper border-top-line">
+            <div class="content-container text-center">
+                <span class="section-tag">Digital Hub</span>
+                <h2 class="massive-footer-title">Let's create something timeless.</h2>
+                <p class="dm-subtext">Direct message on social networks for scheduling, licensing, and creative assignments.</p>
+                
+                <div class="social-button-grid">
+                    <a href="https://www.instagram.com/diary_in_frames11?igsh=Nm0yc3puaWMxZmlv" target="_blank" class="apple-social-pill">
+                        <span class="pill-icon">📸</span>
+                        <div class="pill-text-wrap">
+                            <span class="pill-label">Follow Instagram Profile</span>
+                            <span class="pill-handle">@diary_in_frames11</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Apple Editorial Footer -->
+        <footer class="minimal-footer">
+            <div class="footer-inner">
+                <p class="footer-brand-name">Diary in Frames</p>
+                <p class="copyright-note">&copy; 2026 Diary in Frames. High-end Visual Curation. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Apple System Lightbox Modal Overlayer View -->
+    <div class="apple-modal-lightbox" id="exhibition-modal">
+        <div class="modal-close-trigger" id="close-modal-view">&times;</div>
+        <div class="modal-content-box">
+            <img class="modal-main-image" id="modal-img-node" src="" alt="Exhibition frame image">
+            <div class="modal-caption-bar">
+                <h3 id="modal-title-node"></h3>
+                <p id="modal-tag-node"></p>
+            </div>
         </div>
     </div>
 
