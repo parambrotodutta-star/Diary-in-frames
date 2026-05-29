@@ -1,508 +1,142 @@
-/* Apple UI Premium Color Framework System */
-:root {
-    --apple-bg: #0A0A0B;          /* Pro Dark Base Workspace Grey */
-    --apple-card: #121214;        /* Lighter Container Layer */
-    --apple-card-hover: #18181C;  /* Interactive Highlight State */
-    --apple-text: #F5F5F7;        /* Crisp Off-White Silk Text */
-    --apple-muted: #86868B;       /* Classic Apple Muted Cashmere Grey */
-    --apple-blue: #0071E3;        /* iOS Clean Accent Link Blue */
-    --apple-border: #1D1D1F;      /* Super Clean Micro Divider Lines */
-    --font-apple: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+// Raw Local Repository Asset Manifest - Optimized for GitHub Pages Root Paths
+const photographyData = [
+    { url: "./IMG_20260510_122606.png", title: "Neon Monsoon Monologue", category: "Cinematic Street", layout: "portrait" },
+    { url: "./InShot_20260522_125043105.jpg", title: "Himalayan Ridge Layering", category: "Mountain Landscape", layout: "landscape" },
+    { url: "./InShot_20260525_113635932.jpg", title: "The Misty Transit Way", category: "Mood Landscape", layout: "landscape" },
+    { url: "./file_00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
+    { url: "./file_00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
+    { url: "./file_0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" }
+];
+
+// --- 1. APPLE INERTIAL KINETIC SCROLL ENGINE ---
+const scrollContainer = document.getElementById('scroll-container');
+let currentY = 0;
+let targetY = 0;
+const easeFactor = 0.085; 
+
+function applySmoothScrollEngine() {
+    document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
+    scrollContainer.style.position = 'fixed';
+    scrollContainer.style.top = 0;
+    scrollContainer.style.left = 0;
+    
+    window.addEventListener('scroll', () => {
+        targetY = window.scrollY;
+    });
+
+    function runLinearInterpolation() {
+        currentY += (targetY - currentY) * easeFactor;
+        scrollContainer.style.transform = `translateY(-${currentY.toFixed(2)}px)`;
+        requestAnimationFrame(runLinearInterpolation);
+    }
+    requestAnimationFrame(runLinearInterpolation);
+    
+    window.addEventListener('resize', () => {
+        document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
+    });
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
+// --- 2. CINEMATIC CROSSFADE HERO SLIDESHOW ---
+function initHeroSlideshow() {
+    const slides = document.querySelectorAll('.hero-slide');
+    if(slides.length === 0) return;
+    let activeSlideIdx = 0;
+
+    setInterval(() => {
+        slides[activeSlideIdx].classList.remove('active');
+        activeSlideIdx = (activeSlideIdx + 1) % slides.length;
+        slides[activeSlideIdx].classList.add('active');
+    }, 5000); 
 }
 
-body {
-    background-color: var(--apple-bg);
-    color: var(--apple-text);
-    font-family: var(--font-apple);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+// --- 3. DYNAMIC CURATED GRID RENDER SYSTEM ---
+const masonryGallery = document.getElementById('masonry-gallery');
+const exhibitionModal = document.getElementById('exhibition-modal');
+const modalImgNode = document.getElementById('modal-img-node');
+const closeModalView = document.getElementById('close-modal-view');
+
+function generateExhibitionGrid() {
+    if(!masonryGallery) return;
+    masonryGallery.innerHTML = ""; // Clear out older dynamic reference states
+    
+    photographyData.forEach(item => {
+        const frameCard = document.createElement('div');
+        frameCard.classList.add('gallery-card-frame', item.layout);
+        
+        frameCard.innerHTML = `
+            <div class="image-inner-box">
+                <img src="${item.url}" alt="${item.title}" loading="lazy">
+            </div>
+            <div class="card-meta-bar">
+                <h4>${item.title}</h4>
+                <span>${item.category}</span>
+            </div>
+        `;
+        
+        frameCard.addEventListener('click', () => openAppleLightbox(item));
+        masonryGallery.appendChild(frameCard);
+    });
 }
 
-/* Scroll Wrapper Engine Setup */
-#scroll-container {
-    width: 100%;
-    position: relative;
-    will-change: transform;
+// --- 4. APPLE BLUR LIGHTBOX CONTROLLER SYSTEM ---
+function openAppleLightbox(data) {
+    modalImgNode.src = data.url;
+    document.getElementById('modal-title-node').textContent = data.title;
+    document.getElementById('modal-tag-node').textContent = data.category;
+    exhibitionModal.style.display = 'flex';
+    setTimeout(() => exhibitionModal.classList.add('show'), 10);
 }
 
-/* Custom Smooth Link Navigation Top Bar styling */
-.apple-navbar {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    background-color: rgba(10, 10, 11, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--apple-border);
-    z-index: 1000;
-}
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.nav-brand {
-    color: var(--apple-text);
-    text-decoration: none;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    font-size: 1.1rem;
-}
-.nav-menu a {
-    color: var(--apple-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin-left: 24px;
-    font-weight: 400;
-    transition: color 0.25s ease;
-}
-.nav-menu a:hover {
-    color: var(--apple-text);
+function closeAppleLightbox() {
+    exhibitionModal.classList.remove('show');
+    setTimeout(() => exhibitionModal.style.display = 'none', 300);
 }
 
-/* Fullscreen Crossfade Hero Layout Configuration */
-.fullscreen-hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-.hero-slideshow {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 1;
-}
-.hero-slide {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.hero-slide.active {
-    opacity: 0.45;
-}
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(10,10,11,0.2) 0%, var(--apple-bg) 95%);
-    z-index: 2;
-}
-.hero-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    max-width: 750px;
-    padding: 0 24px;
-}
-.hero-badge {
-    color: var(--apple-muted);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    margin-bottom: 16px;
-    font-weight: 500;
-}
-.hero-title {
-    font-size: clamp(2.5rem, 6vw, 4.8rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
-.hero-subtitle {
-    color: var(--apple-muted);
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    font-weight: 400;
-    margin-bottom: 35px;
-    line-height: 1.5;
-}
-.apple-cta-btn {
-    display: inline-block;
-    background-color: var(--apple-text);
-    color: var(--apple-bg);
-    padding: 12px 28px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: transform 0.25s ease, background-color 0.25s ease;
-}
-.apple-cta-btn:hover {
-    transform: scale(1.02);
-    background-color: #ffffff;
-}
-.scroll-prompt {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--apple-muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-}
-.scroll-line {
-    width: 1px;
-    height: 40px;
-    background-color: var(--apple-border);
-    position: relative;
-    overflow: hidden;
-}
-.scroll-line::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 50%;
-    background-color: var(--apple-muted);
-    animation: scroll-drop-anim 2s infinite ease-in-out;
-}
-@keyframes scroll-drop-anim {
-    0% { transform: translateY(-100%); }
-    80%, 100% { transform: translateY(200%); }
+if(closeModalView) closeModalView.addEventListener('click', closeAppleLightbox);
+if(exhibitionModal) {
+    exhibitionModal.addEventListener('click', (e) => { if (e.target === exhibitionModal) closeAppleLightbox(); });
 }
 
-/* Master Core Structural Workspace Section Elements styling */
-.section-wrapper {
-    padding: 120px 24px;
-    position: relative;
-}
-.bg-darker {
-    background-color: var(--apple-card);
-}
-.border-top-line {
-    border-top: 1px solid var(--apple-border);
-}
-.content-container {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-.text-center { text-align: center; }
+// --- 5. INTERACTIVE QUOTE CAROUSEL SLIDER ---
+function initQuoteSlider() {
+    const quoteSlides = document.querySelectorAll('.premium-quote-slide');
+    const dotsContainer = document.getElementById('slider-dots');
+    if(quoteSlides.length === 0 || !dotsContainer) return;
+    let currentIdx = 0;
 
-.section-header {
-    margin-bottom: 70px;
-}
-.section-tag {
-    color: var(--apple-blue);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 12px;
-}
-.section-heading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-}
-.meta-location {
-    color: var(--apple-muted);
-    font-size: 0.95rem;
-    margin-top: 10px;
+    dotsContainer.innerHTML = "";
+
+    quoteSlides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot-node');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => updateActiveQuoteSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateActiveQuoteSlide(targetIndex) {
+        quoteSlides[currentIdx].classList.remove('active');
+        dotsContainer.children[currentIdx].classList.remove('active');
+        
+        currentIdx = targetIndex;
+        
+        quoteSlides[currentIdx].classList.add('active');
+        dotsContainer.children[currentIdx].classList.add('active');
+    }
+
+    setInterval(() => {
+        let nextIdx = (currentIdx + 1) % quoteSlides.length;
+        updateActiveQuoteSlide(nextIdx);
+    }, 6000);
 }
 
-/* Premium Profile Service Identity Cards styling */
-.apple-services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 60px;
-}
-@media (max-width: 768px) {
-    .apple-services-grid { grid-template-columns: 1fr; }
-}
-.service-card-premium {
-    background-color: var(--apple-bg);
-    border: 1px solid var(--apple-border);
-    border-radius: 18px;
-    padding: 40px 30px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-.service-card-premium:hover {
-    border-color: #2D2D30;
-    background-color: var(--apple-card-hover);
-}
-.card-icon-wrap {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-}
-.service-card-premium h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-}
-.service-card-premium p {
-    color: var(--apple-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-.collab-invite-banner {
-    text-align: center;
-    border-top: 1px solid var(--apple-border);
-    padding-top: 50px;
-}
-.collab-invite-banner p {
-    color: var(--apple-muted);
-    font-size: 1.05rem;
-    margin-bottom: 10px;
-}
-.text-link-apple {
-    color: var(--apple-blue);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.05rem;
-}
-.text-link-apple span {
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-.text-link-apple:hover span {
-    transform: translateX(4px);
-}
-
-/* Dynamic Modern Portfolio Fine Art Exhibition Gallery Layout styling */
-.apple-portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 48px;
-}
-@media (max-width: 768px) {
-    .apple-portfolio-grid { grid-template-columns: 1fr; gap: 30px; }
-}
-.gallery-card-frame {
-    background-color: var(--apple-card);
-    border: 1px solid var(--apple-border);
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
-}
-.gallery-card-frame.portrait .image-inner-box { aspect-ratio: 3/4; }
-.gallery-card-frame.landscape .image-inner-box { aspect-ratio: 16/11; }
-
-.image-inner-box {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    background-color: #0F0F10;
-}
-.gallery-card-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.gallery-card-frame:hover {
-    border-color: #2D2D30;
-    transform: translateY(-4px);
-}
-.gallery-card-frame:hover img {
-    transform: scale(1.03);
-}
-.card-meta-bar {
-    padding: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--apple-border);
-    background-color: var(--apple-card);
-}
-.card-meta-bar h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-}
-.card-meta-bar span {
-    font-size: 0.75rem;
-    color: var(--apple-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background-color: var(--apple-bg);
-    padding: 4px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--apple-border);
-}
-
-/* Interactive Slide-Fade Quotes Slider styling */
-.quote-slider-wrapper {
-    max-width: 850px;
-    margin: 0 auto;
-    position: relative;
-}
-.quote-carousel {
-    position: relative;
-    min-height: 240px;
-}
-.premium-quote-slide {
-    position: absolute;
-    top: 0; left: 0; width: 100%;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    text-align: center;
-}
-.premium-quote-slide.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    position: relative;
-}
-.quote-mark {
-    font-size: 4rem;
-    color: var(--apple-blue);
-    line-height: 1;
-    display: block;
-    font-family: Georgia, serif;
-}
-.main-quote-body {
-    font-size: clamp(1.3rem, 3vw, 1.8rem);
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
-    margin-bottom: 24px;
-}
-.quote-creator {
-    color: var(--apple-muted);
-    font-size: 0.95rem;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-.slider-dots-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 30px;
-}
-.dot-node {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background-color: var(--apple-border);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.dot-node.active {
-    background-color: var(--apple-text);
-    transform: scale(1.2);
-}
-
-/* Social Network Connection Base Components */
-.massive-footer-title {
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
-.dm-subtext {
-    color: var(--apple-muted);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 50px;
-    line-height: 1.5;
-}
-.social-button-grid {
-    display: flex;
-    justify-content: center;
-}
-.apple-social-pill {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background-color: var(--apple-card);
-    border: 1px solid var(--apple-border);
-    padding: 18px 36px;
-    border-radius: 20px;
-    text-decoration: none;
-    color: var(--apple-text);
-    text-align: left;
-    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-}
-.apple-social-pill:hover {
-    background-color: var(--apple-card-hover);
-    border-color: #2D2D30;
-    transform: scale(1.01);
-}
-.pill-icon { font-size: 2.2rem; }
-.pill-text-wrap { display: flex; flex-direction: column; }
-.pill-label { font-size: 0.8rem; color: var(--apple-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-.pill-handle { font-size: 1.15rem; font-weight: 600; }
-
-/* Clean Layout Footer element structures */
-.minimal-footer {
-    border-top: 1px solid var(--apple-border);
-    padding: 50px 24px;
-    background-color: #050506;
-}
-.footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-@media (max-width: 500px) {
-    .footer-inner { flex-direction: column; gap: 15px; text-align: center; }
-}
-.footer-brand-name { font-weight: 600; font-size: 0.95rem; }
-.copyright-note { color: var(--apple-muted); font-size: 0.8rem; }
-
-/* Apple System Blur Lightbox Overlay design layout */
-.apple-modal-lightbox {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(5, 5, 6, 0.9);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 24px;
-}
-.apple-modal-lightbox.show { display: flex; }
-.modal-close-trigger {
-    position: absolute;
-    top: 30px; right: 40px;
-    font-size: 2.5rem;
-    color: var(--apple-muted);
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-.modal-close-trigger:hover { color: var(--apple-text); }
-.modal-content-box {
-    max-width: 950px; width: 100%;
-    display: flex; flex-direction: column;
-    align-items: center;
-}
-.modal-main-image {
-    max-width: 100%; max-height: 75vh;
-    object-fit: contain;
-    border-radius: 14px;
-    border: 1px solid var(--apple-border);
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-}
-.modal-caption-bar {
-    text-align: center; margin-top: 24px;
-}
-.modal-caption-bar h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
-.modal-caption-bar p { font-size: 0.8rem; color: var(--apple-blue); text-transform: uppercase; letter-spacing: 0.05em; }
+// --- 6. LAUNCH ENGINE INITIALIZATION TREE ---
+document.addEventListener('DOMContentLoaded', () => {
+    generateExhibitionGrid();
+    initHeroSlideshow();
+    initQuoteSlider();
+    
+    setTimeout(() => {
+        applySmoothScrollEngine();
+    }, 500);
+});
