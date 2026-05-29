@@ -6,7 +6,6 @@ const photographyData = [
     { url: "file_00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
     { url: "file_00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
     { url: "file_0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" },
-    // Simplified clean file targets to prevent case-sensitivity or relative path breaking bugs on GitHub Pages
     { url: "mountain-night.png", title: "Midnight Hillside Constellations", category: "Atmospheric Landscape", layout: "landscape" },
     { url: "prayer-flags.png", title: "Sacred Forest Grids", category: "Cultural Composition", layout: "landscape" }
 ];
