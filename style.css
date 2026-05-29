@@ -1,126 +1,139 @@
-:root {
-    /* Luxury Premium Studio Color Palette */
-    --luxury-bg: #141412;        /* Studio Warm Charcoal */
-    --luxury-card: #1C1C19;      /* Deep Olive-Tinted Espresso */
-    --luxury-gold: #D4AF37;      /* Muted Champagne Gold */
-    --luxury-text: #F5F5F7;      /* Off-White Silk */
-    --luxury-muted: #8E8E86;     /* Cashmere Grey */
-    --font-serif: 'Didot', 'Bodoni MT', 'Cinzel', serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+// Raw Local Repository Asset Manifest
+const photographyData = [
+    { url: "IMG_20260510_122606.png", title: "Neon Monsoon Monologue", category: "Cinematic Street", layout: "portrait" },
+    { url: "InShot_20260522_125043105.jpg", title: "Himalayan Ridge Layering", category: "Mountain Landscape", layout: "landscape" },
+    { url: "InShot_20260525_113635932.jpg", title: "The Misty Transit Way", category: "Mood Landscape", layout: "landscape" },
+    { url: "file_00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
+    { url: "file_00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
+    { url: "file_0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" }
+];
+
+// --- 1. APPLE INERTIAL KINETIC SCROLL ENGINE ---
+const scrollContainer = document.getElementById('scroll-container');
+let currentY = 0;
+let targetY = 0;
+const easeFactor = 0.085; // Lower values = smoother, silkier Apple scroll feel
+
+function applySmoothScrollEngine() {
+    // Sync heights to calculate exact bounding box frames
+    document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
+    scrollContainer.style.position = 'fixed';
+    scrollContainer.style.top = 0;
+    scrollContainer.style.left = 0;
+    
+    window.addEventListener('scroll', () => {
+        targetY = window.scrollY;
+    });
+
+    function runLinearInterpolation() {
+        // Core interpolation loop for momentum calculations
+        currentY += (targetY - currentY) * easeFactor;
+        scrollContainer.style.transform = `translateY(-${currentY.toFixed(2)}px)`;
+        requestAnimationFrame(runLinearInterpolation);
+    }
+    requestAnimationFrame(runLinearInterpolation);
+    
+    // Force reset bounding calculation fields on window view resizing
+    window.addEventListener('resize', () => {
+        document.body.style.height = `${scrollContainer.getBoundingClientRect().height}px`;
+    });
 }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+// --- 2. CINEMATIC CROSSFADE HERO SLIDESHOW ---
+function initHeroSlideshow() {
+    const slides = document.querySelectorAll('.hero-slide');
+    let activeSlideIdx = 0;
+
+    setInterval(() => {
+        slides[activeSlideIdx].classList.remove('active');
+        activeSlideIdx = (activeSlideIdx + 1) % slides.length;
+        slides[activeSlideIdx].classList.add('active');
+    }, 5000); // Transitions frames smoothly every 5 seconds
 }
 
-html, body {
-    background-color: var(--luxury-bg);
-    color: var(--luxury-text);
-    font-family: var(--font-sans);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+// --- 3. DYNAMIC CURATED GRID RENDER SYSTEM ---
+const masonryGallery = document.getElementById('masonry-gallery');
+const exhibitionModal = document.getElementById('exhibition-modal');
+const modalImgNode = document.getElementById('modal-img-node');
+const closeModalView = document.getElementById('close-modal-view');
+
+function generateExhibitionGrid() {
+    photographyData.forEach(item => {
+        const frameCard = document.createElement('div');
+        frameCard.classList.add('gallery-card-frame', item.layout);
+        
+        frameCard.innerHTML = `
+            <div class="image-inner-box">
+                <img src="${item.url}" alt="${item.title}" loading="lazy">
+            </div>
+            <div class="card-meta-bar">
+                <h4>${item.title}</h4>
+                <span>${item.category}</span>
+            </div>
+        `;
+        
+        frameCard.addEventListener('click', () => openAppleLightbox(item));
+        masonryGallery.appendChild(frameCard);
+    });
 }
 
-/* Cinematic Intro Page Transition Curtain */
-.page-transition-curtain {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background-color: var(--luxury-card); z-index: 10000;
-    display: flex; justify-content: center; align-items: center;
-}
-.curtain-logo {
-    font-family: var(--font-serif); font-size: 1.8rem;
-    letter-spacing: 0.3em; color: var(--luxury-gold);
-    opacity: 0; transform: translateY(20px);
+// --- 4. APPLE BLUR LIGHTBOX CONTROLLER SYSTEM ---
+function openAppleLightbox(data) {
+    modalImgNode.src = data.url;
+    document.getElementById('modal-title-node').textContent = data.title;
+    document.getElementById('modal-tag-node').textContent = data.category;
+    exhibitionModal.style.display = 'flex';
+    setTimeout(() => exhibitionModal.classList.add('show'), 10);
 }
 
-/* Subtle Luxury Film Grain Overlayer */
-.film-grain {
-    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.035"/%3E%3C/svg%3E');
-    opacity: 0.9; pointer-events: none; z-index: 9999; animation: grain-shift 7s steps(8) infinite;
-}
-@keyframes grain-shift { 
-    0%, 100% { transform:translate(0, 0); } 
-    50% { transform:translate(2%, 4%); } 
+function closeAppleLightbox() {
+    exhibitionModal.classList.remove('show');
+    setTimeout(() => exhibitionModal.style.display = 'none', 300);
 }
 
-/* Fullscreen Cinematic Hero Header Layout */
-.hero { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-.hero-bg-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 130%; will-change: transform; }
-.hero-parallax-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4) contrast(1.05); }
-.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 40%, var(--luxury-bg) 100%); z-index: 2; }
-.hero-content { position: relative; z-index: 3; text-align: center; padding: 0 20px; }
+closeModalView.addEventListener('click', closeAppleLightbox);
+exhibitionModal.addEventListener('click', (e) => { if (e.target === exhibitionModal) closeAppleLightbox(); });
 
-.main-title { 
-    font-family: var(--font-serif); font-size: clamp(2.2rem, 7vw, 6rem); 
-    font-weight: 300; letter-spacing: 0.28em; margin-bottom: 20px; 
-    color: var(--luxury-text); opacity: 0; transform: translateY(40px);
+// --- 5. INTERACTIVE QUOTE CAROUSEL SLIDER ---
+function initQuoteSlider() {
+    const quoteSlides = document.querySelectorAll('.premium-quote-slide');
+    const dotsContainer = document.getElementById('slider-dots');
+    let currentIdx = 0;
+
+    // Build functional navigation node indicators dynamically
+    quoteSlides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot-node');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => updateActiveQuoteSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    function updateActiveQuoteSlide(targetIndex) {
+        quoteSlides[currentIdx].classList.remove('active');
+        dotsContainer.children[currentIdx].classList.remove('active');
+        
+        currentIdx = targetIndex;
+        
+        quoteSlides[currentIdx].classList.add('active');
+        dotsContainer.children[currentIdx].classList.add('active');
+    }
+
+    // Smooth automatic cycling every 6 seconds
+    setInterval(() => {
+        let nextIdx = (currentIdx + 1) % quoteSlides.length;
+        updateActiveQuoteSlide(nextIdx);
+    }, 6000);
 }
-.main-subtitle { font-size: clamp(0.65rem, 1.2vw, 0.85rem); letter-spacing: 0.5em; color: var(--luxury-gold); opacity: 0; transform: translateY(20px); }
-.scroll-indicator { position: absolute; bottom: 40px; z-index: 3; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--luxury-muted); }
 
-/* Fine Art Profile Bio Section Layout */
-.about-section { padding: 160px 20px 100px; display: flex; justify-content: center; }
-.about-card { max-width: 750px; background: var(--luxury-card); padding: 80px 50px; border-radius: 2px; border: 1px solid #262622; text-align: center; }
-.location-tag { font-size: 0.75rem; letter-spacing: 0.25em; color: var(--luxury-gold); display: block; margin-bottom: 25px; }
-.about-card h2 { font-family: var(--font-serif); font-size: 2.5rem; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.05em; }
-.services-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 35px; }
-.services-row span { border: 1px solid #3A3A35; padding: 10px 24px; border-radius: 0px; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--luxury-text); }
-.collab-text { color: var(--luxury-muted); line-height: 1.8; font-size: 1.05rem; }
-
-/* Portfolio Gallery Workspace Layout */
-.portfolio-container { max-width: 1400px; margin: 0 auto; padding: 120px 60px; }
-.section-header { margin-bottom: 90px; }
-.section-tag { font-size: 0.75rem; letter-spacing: 0.4em; color: var(--luxury-gold); margin-bottom: 15px; }
-.section-title { font-family: var(--font-serif); font-size: 3.2rem; font-weight: 300; letter-spacing: 0.02em; }
-
-.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 100px 60px; }
-@media (max-width: 768px) { 
-    .gallery-grid { grid-template-columns: 1fr; gap: 60px; } 
-    .portfolio-container { padding: 80px 20px; } 
-}
-
-/* Image Reveal Clipping Mask Configuration */
-.gallery-item { 
-    position: relative; width: 100%; overflow: hidden; cursor: pointer; background-color: #0b0b0a;
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); /* Opened dynamically smoothly via JavaScript GSAP triggering */
-}
-.gallery-item.landscape { aspect-ratio: 16 / 11; }
-.gallery-item.portrait { aspect-ratio: 3 / 4; }
-
-/* Sub-Parallax Image Frames Layout Inner Engine */
-.img-parallax-wrapper { width: 100%; height: 115%; position: absolute; top: 0; left: 0; will-change: transform; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
-
-/* Luxury Slow Motion Zoom Hover Effect */
-.gallery-item:hover img { transform: scale(1.06); }
-
-/* Minimal Luxury Typography Overlays */
-.item-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(to top, rgba(20,20,18,0.95) 0%, transparent 100%); opacity: 0; transform: translateY(15px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.gallery-item:hover .item-info { opacity: 1; transform: translateY(0); }
-.item-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 6px; letter-spacing: 0.05em; }
-.item-category { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--luxury-gold); }
-
-/* Social Interaction Zone Footprint Styles */
-.socials-section { padding: 160px 20px; text-align: center; border-top: 1px solid #232320; }
-.social-tag { font-size: 0.75rem; letter-spacing: 0.3em; color: var(--luxury-muted); margin-bottom: 15px; }
-.socials-section h3 { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 300; margin-bottom: 35px; }
-.instagram-link { font-family: var(--font-serif); font-size: clamp(1.3rem, 3vw, 2.5rem); color: var(--luxury-gold); text-decoration: none; border-bottom: 1px solid #3a3a34; padding-bottom: 12px; transition: all 0.5s ease; letter-spacing: 0.05em; }
-.instagram-link:hover { border-color: var(--luxury-text); color: var(--luxury-text); }
-
-footer { padding: 100px 40px; text-align: center; border-top: 1px solid #232320; background-color: #0d0d0c; }
-.footer-brand { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 300; letter-spacing: 0.3em; margin-bottom: 15px; color: var(--luxury-gold); }
-.footer-credits { font-size: 0.75rem; color: #555550; letter-spacing: 0.1em; }
-
-/* Blurry Exhibition Lightbox Screen Styles */
-.lightbox { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(14,14,12,0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; }
-.lightbox.active { opacity: 1; pointer-events: auto; }
-.lightbox-img { max-width: 85%; max-height: 70vh; object-fit: contain; transform: scale(0.95); filter: blur(10px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid #22221e; }
-.lightbox.active .lightbox-img { transform: scale(1); filter: blur(0); }
-.lightbox-close { position: absolute; top: 40px; right: 50px; font-size: 2.5rem; font-weight: 200; color: var(--luxury-muted); cursor: pointer; transition: color 0.3s; }
-.lightbox-close:hover { color: var(--luxury-gold); }
-.lightbox-caption { text-align: center; margin-top: 30px; }
-#lightbox-title { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; margin-bottom: 8px; letter-spacing: 0.05em; }
-#lightbox-category { font-size: 0.8rem; letter-spacing: 0.25em; color: var(--luxury-gold); text-transform: uppercase; }
+// --- 6. LAUNCH ENGINE INITIALIZATION TREE ---
+document.addEventListener('DOMContentLoaded', () => {
+    generateExhibitionGrid();
+    initHeroSlideshow();
+    initQuoteSlider();
+    
+    // Short grace delay to ensure layout sizes calculate precisely before firing kinetic momentum loops
+    setTimeout(() => {
+        applySmoothScrollEngine();
+    }, 400);
+});
