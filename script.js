@@ -1,4 +1,4 @@
-// Raw Local Repository Asset Manifest - Configured with 8 Project Assets
+// Premium Media Manifest Array - Configured with 8 Project Assets
 const photographyData = [
     { url: "./IMG_20260510_122606.png", title: "Neon Monsoon Monologue", category: "Cinematic Street", layout: "portrait" },
     { url: "./InShot_20260522_125043105.jpg", title: "Himalayan Ridge Layering", category: "Mountain Landscape", layout: "landscape" },
@@ -6,12 +6,12 @@ const photographyData = [
     { url: "./file_00000000d930720891f74f9f44088538.png", title: "Candid Alleyways", category: "Street Portraiture", layout: "landscape" },
     { url: "./file_00000000e6e8720789ec4c9a025610e2.png", title: "Breeze of Prayers", category: "Cultural Elements", layout: "landscape" },
     { url: "./file_0000000090cc72069d598728e65628a7.png", title: "Silent Peace Pagoda", category: "Architectural Mystique", layout: "portrait" },
-    // Custom Selected Visual Assets Included Here
+    // Mapped system keys directly matching uploaded filenames to resolve display issues
     { url: "./file_00000000d34071f7a0f58cb4bb47bc7b.png", title: "Midnight Hillside Constellations", category: "Atmospheric Landscape", layout: "landscape" },
     { url: "./file_00000000ff2472079842c4d554060777.png", title: "Sacred Forest Grids", category: "Cultural Composition", layout: "landscape" }
 ];
 
-// --- 1. APPLE INERTIAL KINETIC SCROLL ENGINE ---
+// --- 1. PREMIUM LERP INERTIAL SCROLL MECHANICS ---
 const scrollContainer = document.getElementById('scroll-container');
 let currentY = 0;
 let targetY = 0;
@@ -39,24 +39,8 @@ function applySmoothScrollEngine() {
     });
 }
 
-// --- 2. CINEMATIC CROSSFADE HERO SLIDESHOW ---
-function initHeroSlideshow() {
-    const slides = document.querySelectorAll('.hero-slide');
-    if(slides.length === 0) return;
-    let activeSlideIdx = 0;
-
-    setInterval(() => {
-        slides[activeSlideIdx].classList.remove('active');
-        activeSlideIdx = (activeSlideIdx + 1) % slides.length;
-        slides[activeSlideIdx].classList.add('active');
-    }, 5000); 
-}
-
-// --- 3. DYNAMIC CURATED GRID RENDER SYSTEM ---
+// --- 2. ASYMMETRICAL MOUNT ENGINE & REAL-TIME INTERACTIVE 3D TILT TETHER ---
 const masonryGallery = document.getElementById('masonry-gallery');
-const exhibitionModal = document.getElementById('exhibition-modal');
-const modalImgNode = document.getElementById('modal-img-node');
-const closeModalView = document.getElementById('close-modal-view');
 
 function generateExhibitionGrid() {
     if(!masonryGallery) return;
@@ -76,12 +60,50 @@ function generateExhibitionGrid() {
             </div>
         `;
         
+        // Precise Cursor Matrix Tracking Math
+        frameCard.addEventListener('mousemove', (e) => {
+            const cardBoundingRect = frameCard.getBoundingClientRect();
+            const coordinateX = e.clientX - cardBoundingRect.left; 
+            const coordinateY = e.clientY - cardBoundingRect.top;
+            
+            const centerDistanceX = coordinateX - cardBoundingRect.width / 2;
+            const centerDistanceY = coordinateY - cardBoundingRect.height / 2;
+            
+            // Map rotational limits on X and Y perspective tracks
+            const degreesRotationX = (centerDistanceY / (cardBoundingRect.height / 2)) * -12; 
+            const degreesRotationY = (centerDistanceX / (cardBoundingRect.width / 2)) * 12;
+            
+            frameCard.style.transform = `perspective(1200px) rotateX(${degreesRotationX.toFixed(2)}deg) rotateY(${degreesRotationY.toFixed(2)}deg) scale(1.03) translateZ(15px)`;
+        });
+        
+        // Neutral Smooth Core Frame Reset Layer
+        frameCard.addEventListener('mouseleave', () => {
+            frameCard.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px)`;
+        });
+        
         frameCard.addEventListener('click', () => openAppleLightbox(item));
         masonryGallery.appendChild(frameCard);
     });
 }
 
-// --- 4. APPLE BLUR LIGHTBOX CONTROLLER SYSTEM ---
+// --- 3. HERO SLIDESHOW CROSSFADER ---
+function initHeroSlideshow() {
+    const slides = document.querySelectorAll('.hero-slide');
+    if(slides.length === 0) return;
+    let activeSlideIdx = 0;
+
+    setInterval(() => {
+        slides[activeSlideIdx].classList.remove('active');
+        activeSlideIdx = (activeSlideIdx + 1) % slides.length;
+        slides[activeSlideIdx].classList.add('active');
+    }, 5000); 
+}
+
+// --- 4. LIGHTBOX DISPLAY HANDLERS ---
+const exhibitionModal = document.getElementById('exhibition-modal');
+const modalImgNode = document.getElementById('modal-img-node');
+const closeModalView = document.getElementById('close-modal-view');
+
 function openAppleLightbox(data) {
     modalImgNode.src = data.url;
     document.getElementById('modal-title-node').textContent = data.title;
@@ -100,46 +122,13 @@ if(exhibitionModal) {
     exhibitionModal.addEventListener('click', (e) => { if (e.target === exhibitionModal) closeAppleLightbox(); });
 }
 
-// --- 5. INTERACTIVE QUOTE CAROUSEL SLIDER ---
-function initQuoteSlider() {
-    const quoteSlides = document.querySelectorAll('.premium-quote-slide');
-    const dotsContainer = document.getElementById('slider-dots');
-    if(quoteSlides.length === 0 || !dotsContainer) return;
-    let currentIdx = 0;
-
-    dotsContainer.innerHTML = "";
-
-    quoteSlides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot-node');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => updateActiveQuoteSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-
-    function updateActiveQuoteSlide(targetIndex) {
-        quoteSlides[currentIdx].classList.remove('active');
-        dotsContainer.children[currentIdx].classList.remove('active');
-        
-        currentIdx = targetIndex;
-        
-        quoteSlides[currentIdx].classList.add('active');
-        dotsContainer.children[currentIdx].classList.add('active');
-    }
-
-    setInterval(() => {
-        let nextIdx = (currentIdx + 1) % quoteSlides.length;
-        updateActiveQuoteSlide(nextIdx);
-    }, 6000);
-}
-
-// --- 6. LAUNCH ENGINE INITIALIZATION TREE ---
+// --- 5. SYSTEM WORKSPACE INITIALIZATION ENGINE ---
 document.addEventListener('DOMContentLoaded', () => {
     generateExhibitionGrid();
     initHeroSlideshow();
-    initQuoteSlider();
     
+    // Smooth delay for complete DOM matrix structural renders before scroll evaluation
     setTimeout(() => {
         applySmoothScrollEngine();
-    }, 500);
+    }, 600);
 });
