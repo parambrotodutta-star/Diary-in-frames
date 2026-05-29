@@ -88,11 +88,12 @@ body {
     100% { transform: translate(80px, 60px) scale(1.15) rotate(45deg); }
 }
 
-/* --- STRUCTURAL WRAPPER --- */
+/* --- STRUCTURAL CORE WRAPPER --- */
 .studio-global-wrapper {
     position: relative;
     width: 100%;
     z-index: 5;
+    background: transparent !important; /* Forces the white block to disappear so colors show through */
 }
 
 .serif-italic {
