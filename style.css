@@ -209,7 +209,6 @@ body {
 }
 .luxury-action-button:hover svg { transform: translateX(6px); }
 
-/* Glass Canvas Photo Holder Frame */
 .hero-glass-canvas-frame {
     background: var(--glass-card);
     border: 1px solid var(--glass-border);
