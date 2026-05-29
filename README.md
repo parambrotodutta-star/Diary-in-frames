@@ -1,34 +1,39 @@
-# 📔 Diary in Frames — Luxury Cinematic Portfolio
+# 📔 Diary in Frames — Premium Apple UI Visual Portfolio
 
-A high-end, editorial visual portfolio website designed for **Diary in Frames**. This platform showcases cinematic photography and visual storytelling through atmospheric web design, utilizing sophisticated color palettes and smooth motion choreography.
+A high-end, editorial photography and cinematography portfolio website meticulously crafted for **Diary in Frames**. This platform blends premium Apple-inspired user interface mechanics with an immersive presentation layout to display visual narratives flawlessly.
 
 ---
 
-## ✨ Premium Features & Cinematic Effects
+## 💎 Premium Apple UI Features & Core Mechanics
 
-* **Studio Warm Charcoal Palette:** Bypasses generic layouts with an editorial, dark luxury theme featuring cashmere greys and muted champagne golds.
-* **Smooth Scroll + Soft Parallax:** Implements a multi-layered kinetic scroll on the hero backdrop and across the asymmetric exhibition grid.
-* **Image Reveal Animation:** Dynamically wipes open structural image containers via synchronized clipping masks as they scroll into view.
-* **Cinematic Page Transition:** Opens the application with an intentional full-screen curtain wipe effect powered by high-performance hardware rendering.
-* **Slow Zoom Hover Matrix:** Smoothly scales focal elements inside a hidden overflow wrapper to create a luxury breathing effect on interaction.
-* **Blurred Exhibition Lightbox:** An immersive, hardware-accelerated gallery modal that isolating frames using a deep, crystal-blur backdrop.
+* **Apple Pro Workspace Palette:** Built using an elegant Mac Studio Space Grey base (`#0A0A0B`), layered structural dark containers (`#121214`), and ultra-crisp off-white silk typography (`#F5F5F7`).
+* **Custom Inertial Smooth Scroll:** Implements an ultra-premium, hardware-accelerated inertia momentum scroll engine directly via linear interpolation in vanilla JavaScript—completely dropping heavy external scroll libraries.
+* **Cinematic Cross-Fade Hero:** A full-screen entrance view featuring an editorial automated background slideshow transitioning smoothly every 5 seconds.
+* **Asymmetric Exhibition Grid:** Displays high-resolution captures in customized portrait and landscape framing blocks that adapt responsively to different screen sizes.
+* **Apple Blur Lightbox View:** A modern overlay window that isolates visual frames using real-time backdrop blur filter structures (`blur(25px)`).
+* **Slide-Fade Quote Carousel:** A clean, automated interaction block featuring automated dot-navigation cycling through famous photographer mantras.
 
 ---
 
 ## 🛠️ Built With
 
-* **HTML5** — Semantic, clean document object architecture.
-* **CSS3** — Custom-engineered luxury design properties, variables, and clip-path structures.
-* **JavaScript (ES6)** — Dynamic grid array rendering and interaction systems.
-* **GSAP (GreenSock Animation Platform)** — The industry-standard micro-interaction engine.
-* **ScrollTrigger Plugin** — Orchestrates flawless scroll-bound clipping mask animations.
+* **HTML5** — Deep semantic document block positioning.
+* **CSS3 (Custom Properties)** — Native variables, webkit backdrop blur modules, flexbox/grid layout trees, and responsive design breakpoints.
+* **JavaScript (ES6+)** — Virtual smooth rendering loops, interactive array-to-DOM mapping, interval slideshows, and layout height tracking.
 
 ---
 
 ## 📁 Project Directory Structure
 
 ```text
-├── index.html       # Structural design and layout core
-├── style.css        # Luxury color variables and typography engines
-├── script.js       # Dynamic gallery data and GSAP animation sequences
-└── README.md        # Documentation
+├── index.html       # Apple UI-inspired structural layout sections
+├── style.css        # Premium color variables and micro-divider line grids
+├── script.js        # Dynamic gallery arrays, slideshows, and kinetic scroll engine
+├── README.md        # Documentation
+/* Core Asset Image Files */
+├── IMG_20260510_122606.png
+├── InShot_20260522_125043105.jpg
+├── InShot_20260525_113635932.jpg
+├── file_00000000d930720891f74f9f44088538.png
+├── file_00000000e6e8720789ec4c9a025610e2.png
+└── file_0000000090cc72069d598728e65628a7.png
