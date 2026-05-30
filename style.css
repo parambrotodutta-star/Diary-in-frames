@@ -3,11 +3,9 @@
     --text-dark: #16181d;             
     --text-muted: #4e535e;            
     
-    /* Intensely Saturated Transparent Glass Overlays */
-    --glass-card: rgba(255, 255, 255, 0.35);
-    --glass-card-hover: rgba(255, 255, 255, 0.6);
+    /* Transparent Minimal Glass Card Styling */
+    --glass-card: rgba(255, 255, 255, 0.25);
     --glass-border: rgba(255, 255, 255, 0.4);
-    --glass-border-hover: rgba(22, 24, 29, 0.25);
     
     --font-sans: 'Syne', sans-serif;
     --font-serif: 'Cinzel', serif;
@@ -20,7 +18,7 @@
     user-select: none;
 }
 
-/* Hard reset to eliminate any white masking layers */
+/* Base Level Transparent Foundation */
 html, body {
     background: transparent !important;
     background-color: rgba(0, 0, 0, 0) !important;
@@ -31,7 +29,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- DEEP MOTION GRADIENT BACKDROP --- */
+/* --- AMBIENT GLOW BACKDROP CANVAS --- */
 .premium-matrix-bg {
     position: fixed;
     width: 100vw; 
@@ -41,11 +39,10 @@ html, body {
     z-index: 1;
     overflow: hidden;
     pointer-events: none;
-    /* Rich organic gradient baseline */
     background: linear-gradient(135deg, #fcefe3 0%, #dbeaf4 50%, #f3e5f7 100%) !important;
 }
 
-/* Film Grain Overlay */
+/* Film Grain Sheet */
 .noise-grain-overlay {
     position: absolute;
     width: 100%; height: 100%;
@@ -55,13 +52,13 @@ html, body {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* High-Saturate Shifting Ambient Blurs */
+/* Saturated Organic Blur Elements */
 .aurora-blur-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px) saturate(200%);
-    -webkit-filter: blur(80px) saturate(200%);
-    opacity: 0.65;
+    filter: blur(80px) saturate(220%);
+    -webkit-filter: blur(80px) saturate(220%);
+    opacity: 0.7;
     will-change: transform;
 }
 .orb-coral {
@@ -87,16 +84,19 @@ html, body {
     100% { transform: translate(30px, 30px) scale(1.08); }
 }
 
-/* --- MAIN STRUCTURAL CONTAINER (FORCED TRANSPARENCY) --- */
+/* --- ABSOLUTE TRANSPARENCY OVERRIDES (STOPS WHITE MASKING) --- */
 .studio-global-wrapper, 
 main, 
 section, 
-header {
+div,
+header,
+.exhibition-arena,
+.premium-asymmetric-3d-grid {
     position: relative;
     width: 100%;
     z-index: 5;
     background: transparent !important;
-    background-color: transparent !important;
+    background-color: transparent !important; /* Strips any lingering white background fields completely */
 }
 
 .serif-italic {
@@ -106,14 +106,14 @@ header {
     text-transform: none;
 }
 
-/* --- FLOATING NAVIGATION BAR --- */
+/* --- EDITORIAL HEAD NAVIGATION BAR --- */
 .premium-editorial-nav {
     position: fixed;
     top: 16px; left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 32px);
     max-width: 1200px;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(25px) saturate(180%);
     -webkit-backdrop-filter: blur(25px) saturate(180%);
     border: 1px solid var(--glass-border);
@@ -147,7 +147,7 @@ header {
     .nav-space-between { justify-content: center; }
 }
 
-/* --- ASYMMETRIC HERO CONTAINER --- */
+/* --- HERO DISPLAY LAYOUT --- */
 .avant-garde-hero {
     min-height: 100vh;
     display: flex;
@@ -227,7 +227,7 @@ header {
     .hero-glass-canvas-frame { max-width: 480px; margin: 0 auto; }
 }
 
-/* --- THE EXHIBITION MASONRY ARENA --- */
+/* --- THE EXHIBITION CANVAS GRID --- */
 .exhibition-arena {
     padding: 80px 24px;
     max-width: 1200px;
@@ -256,7 +256,7 @@ header {
     .gallery-card-frame:nth-child(even) { transform: translateY(0); }
 }
 
-/* --- EXHBIT CARD STYLE FRAME (FIXES MOBILE IMAGE CROPPING) --- */
+/* --- GALLERY PHOTOGRAPHY CONTAINER (NO-CROP CORRECTION) --- */
 .gallery-card-frame {
     background: var(--glass-card);
     border: 1px solid var(--glass-border);
@@ -266,36 +266,35 @@ header {
     padding: 16px;
     cursor: pointer;
     will-change: transform;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Image Core Container Adjustment */
+/* Inner Box Optimization */
 .image-inner-box {
     width: 100%; 
     overflow: hidden; 
     border-radius: 16px; 
     position: relative;
-    background: rgba(0,0,0,0.03);
 }
 
-/* Desktop Aspect Layouts */
+/* Desktop Aspect Ratio Handling */
 .gallery-card-frame.portrait .image-inner-box { aspect-ratio: 3/4; }
 .gallery-card-frame.landscape .image-inner-box { aspect-ratio: 16/11; }
 
-/* Responsive Media Overrides to prevent cropping on smaller displays */
+/* Responsive Mobile Fix: Drop bounding box heights to keep landscape frames native */
 @media (max-width: 768px) {
     .gallery-card-frame.portrait .image-inner-box,
     .gallery-card-frame.landscape .image-inner-box { 
-        aspect-ratio: auto !important; /* Disables aspect stretching constraints */
+        aspect-ratio: auto !important; /* Overrides stretching constraints entirely */
+        height: auto !important;
     }
 }
 
-/* Force image tag to fit exactly within its borders without side-clipping */
+/* Forces image to scale down cleanly without cutting off left/right parameters */
 .gallery-card-frame img {
     width: 100%; 
-    height: auto; 
-    max-height: 100%;
-    object-fit: contain; /* Displays the full frame seamlessly */
+    height: auto !important; 
+    object-fit: contain !important; /* Prevents side center cropping completely */
     display: block;
 }
 
@@ -312,7 +311,7 @@ header {
     .gallery-card-frame { transform: none !important; }
 }
 
-/* --- EXPERTISE TRACKS --- */
+/* --- CAPABILITIES AREA --- */
 .disciplines-arena { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
 .luxury-disciplines-layout {
     display: grid;
@@ -335,10 +334,10 @@ header {
     .luxury-disciplines-layout { grid-template-columns: 1fr; gap: 20px; }
 }
 
-/* --- BOOKING SYSTEM PANEL --- */
+/* --- BOOKING CHANNELS --- */
 .collaboration-arena { padding: 60px 24px 100px; max-width: 1200px; margin: 0 auto; }
 .monolithic-glass-booking-card {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.35);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
@@ -357,11 +356,11 @@ header {
 .button-tag-label { font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.7); }
 .instagram-username { font-size: 1.15rem; font-weight: 800; }
 
-/* --- STUDIO FOOTER OVERLAY --- */
+/* --- STUDIO FOOTER DESIGN --- */
 .luxury-studio-footer { 
     padding: 40px 24px; 
     border-top: 1px solid rgba(22,24,29,0.08); 
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
 }
 .footer-asymmetric-split { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 @media (max-width: 600px) { 
@@ -370,7 +369,7 @@ header {
 .footer-brand-signature { font-weight: 800; font-size: 1.1rem; }
 .footer-legal-note { font-size: 0.8rem; color: var(--text-muted); }
 
-/* --- DYNAMIC EXPANSION MODAL SYSTEM --- */
+/* --- LIGHTBOX CANVAS POPUP --- */
 .premium-lightbox-modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: 2000; display: none; justify-content: center; align-items: center; padding: 24px;
